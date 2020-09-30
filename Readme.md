@@ -7,7 +7,7 @@
 在上传国徽面选择身份证反面
 点击识别身份证按钮
 返回结果如下图：
-![Image](https://github.com/jijiezh/aidemo/raw/master/src/main/resources/img/1.png)
+![Image](src/main/resources/img/1.png)
 
 
 2.车牌识别
