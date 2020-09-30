@@ -7,14 +7,14 @@
 在上传国徽面选择身份证反面
 点击识别身份证按钮
 返回结果如下图：
-![Image](https://raw.githubusercontent.com/siyecao/image-folder/master/images/file_watchers.png)
+![Image](https://github.com/jijiezh/aidemo/blob/master/src/main/resources/img/1.png)
 
 
 2.车牌识别
 在上传车牌选择车牌
 点击识别车牌按钮
 返回结果如下图：
-![Image](https://raw.githubusercontent.com/siyecao/image-folder/master/images/file_watchers.png)
+![Image](https://github.com/jijiezh/aidemo/blob/master/src/main/resources/img/2.png)
 
 
 
@@ -23,5 +23,5 @@
 点击识别驾驶证按钮
 返回结果如下图：
 
- ![Image](https://raw.githubusercontent.com/siyecao/image-folder/master/images/file_watchers.png)
+ ![Image](https://github.com/jijiezh/aidemo/blob/master/src/main/resources/img/3.png)
 
