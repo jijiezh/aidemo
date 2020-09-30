@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <title>VIAPI</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h2>VIAPI - 视觉智能开放平台 Example</h2>
+
+            <div class="col-md-12 mx-auto">
+                <h4>身份证识别</h4>
+                <div class="col-sm-12">
+                    <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                </div>
+
+                <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input id='location' class="form-control" onclick="$('#i-face').click();">
+                            <label class="input-group-btn">
+                                <input type="button" id="i-check" value="上传人像面" class="btn btn-primary" onclick="$('#i-face').click();">
+                            </label>
+                        </div>
+                    </div>
+                    <input type="file" name="face" id='i-face'  accept=".jpg, .png, .jpeg" onchange="$('#location').val($('#i-face').val());" style="display: none">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input id='location1' class="form-control" onclick="$('#i-back').click();">
+                            <label class="input-group-btn">
+                                <input type="button" id="i-check-1" value="上传国徽面" class="btn btn-primary" onclick="$('#i-back').click();">
+                            </label>
+                        </div>
+                    </div>
+                    <input type="file" name="back" id='i-back'  accept=".jpg, .png, .jpeg" onchange="$('#location1').val($('#i-back').val());" style="display: none">
+                    <input type="text" name="type"  value="RecognizeIdentityCard" style="display: none">
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary">识别身份证</button>
+                    </div>
+                </form>
+
+                <div class="row" >
+                    <div class="col-md-12 mx-auto">
+                        <div class="col-sm-4">
+                            <img style="width: 100%;" th:src="${faceImage}" th:if="${faceImage ne null}" class="img-fluid" alt=""/>
+                        </div>
+                        <div class="col-sm-4">
+                            <img style="width: 100%;" th:src="${backImage}" th:if="${backImage ne null}" class="img-fluid" alt=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="col-sm-4">
+                            <p th:if="${faceResult ne null}"><span>姓名：</span><span th:text="${faceResult.name}"></span></p>
+                            <p th:if="${faceResult ne null}"><span>性别：</span><span th:text="${faceResult.gender}"></span></p>
+                            <p th:if="${faceResult ne null}"><span>民族：</span><span th:text="${faceResult.nationality}"></span></p>
+                            <p th:if="${faceResult ne null}"><span>出生日期：</span><span th:text="${faceResult.birthDate}"></span></p>
+                            <p th:if="${faceResult ne null}"><span>住址：</span><span th:text="${faceResult.address}"></span></p>
+                            <p th:if="${faceResult ne null}"><span>身份证号码：</span><span th:text="${faceResult.IDNumber}"></span></p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p th:if="${backResult ne null}"><span>签发机关：</span><span th:text="${backResult.issue}"></span></p>
+                            <p th:if="${backResult ne null}"><span>有效日期：</span><span th:text="${backResult.startDate}"></span>~<span th:text="${backResult.endDate}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 mx-auto">
+                <h4>车牌识别</h4>
+                <div class="col-sm-12">
+                    <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                </div>
+
+                <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+                    <div class="col-sm-4">
+                        <div class="input-group" style="margin-top: 10px;">
+                            <input id='location2' class="form-control" onclick="$('#i-face2').click();">
+                            <label class="input-group-btn">
+                                <input type="button" id="i-check2" value="上传车牌" class="btn btn-primary" onclick="$('#i-face2').click();">
+                            </label>
+                        </div>
+                    </div>
+                    <input type="file" name="face" id='i-face2'  accept=".jpg, .png, .jpeg" onchange="$('#location2').val($('#i-face2').val());" style="display: none">
+                    <input type="text" name="type"  value="RecognizeLicensePlate" style="display: none">
+                    <div class="col-sm-4" style="margin-top: 10px;">
+                        <button type="submit" class="btn btn-primary">识别车牌</button>
+                    </div>
+                </form>
+
+                <div class="row" >
+                    <div class="col-md-12 mx-auto">
+                        <div class="col-sm-4" style="margin-top: 10px;">
+                            <img style="width: 100%;" th:src="${plateImages}" th:if="${plateImages ne null}" class="img-fluid" alt=""/>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="col-sm-4">
+                            <p th:if="${plateResults ne null}"><span>车牌号：</span><span th:text="${plateResults.plateNumber}"></span></p>
+                            <p th:if="${plateResults ne null}"><span>车型：</span><span th:text="${plateResults.plateType}"></span></p>
+                            <p th:if="${plateResults ne null}"><span>置信度：</span><span th:text="${plateResults.confidence}"></span></p>
+                            <p th:if="${plateResults ne null}"><span>车型置信度：</span><span th:text="${plateResults.plateTypeConfidence}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="col-md-12 mx-auto">
+                <h4>驾驶证识别识别</h4>
+                <div class="col-sm-12">
+                    <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                </div>
+
+                <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+                    <div class="col-sm-4">
+                        <div class="input-group">
+                            <input id='location3' class="form-control" onclick="$('#i-face3').click();">
+                            <label class="input-group-btn">
+                                <input type="button" id="i-check3" value="上传驾驶证首页" class="btn btn-primary" onclick="$('#i-face3').click();">
+                            </label>
+                        </div>
+                    </div>
+                    <input type="file" name="face" id='i-face3'  accept=".jpg, .png, .jpeg" onchange="$('#location3').val($('#i-face3').val());" style="display: none">
+
+                    <div class="col-sm-4" id="div-back">
+                        <div class="input-group">
+                            <input id='location4' class="form-control" onclick="$('#i-back3').click();">
+                            <label class="input-group-btn">
+                                <input type="button" id="i-check-1" value="上传驾驶证副页" class="btn btn-primary" onclick="$('#i-back3').click();">
+                            </label>
+                        </div>
+                    </div>
+                    <input type="file" name="back" id='i-back3'  accept=".jpg, .png, .jpeg" onchange="$('#location4').val($('#i-back3').val());" style="display: none">
+
+                    <input type="text" name="type"  value="RecognizeDriverLicense" style="display: none">
+                    <div class="col-sm-4">
+                        <button type="submit" class="btn btn-primary">识别驾驶证识别</button>
+                    </div>
+                </form>
+
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="col-sm-4" style="margin-top: 10px;">
+                            <img style="width: 100%;" th:src="${driverImages}" th:if="${driverImages ne null}" class="img-fluid" alt=""/>
+                        </div>
+                        <div class="col-sm-4" style="margin-top: 10px;">
+                            <img style="width: 100%;" th:src="${driverbImages}" th:if="${driverbImages ne null}" class="img-fluid" alt=""/>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 mx-auto">
+                        <div class="col-sm-4">
+                            <p th:if="${driverResults ne null}"><span>地址：</span><span th:text="${driverResults.address}"></span></p>
+                            <p th:if="${driverResults ne null}"><span>有效期截止日期：</span><span th:text="${driverResults.endDate}"></span></p>
+                            <p th:if="${driverResults ne null}"><span>性别：</span><span th:text="${driverResults.gender}"></span></p>
+                            <p th:if="${driverResults ne null}"><span>初次发证日期：</span><span th:text="${driverResults.issueDate}"></span></p>
+                            <p th:if="${driverResults ne null}"><span>驾驶证号：</span><span th:text="${driverResults.licenseNumber}"></span></p>
+                            <p th:if="${driverResults ne null}"><span>姓名：</span><span th:text="${driverResults.name}"></span></p>
+                            <p th:if="${driverResults ne null}"><span>驾驶证有效期开始时间：</span><span th:text="${driverResults.startDate}"></span></p>
+                            <p th:if="${driverResults ne null}"><span>驾驶证准驾车型：</span><span th:text="${driverResults.vehicleType}"></span></p>
+                        </div>
+                        <div class="col-sm-4">
+                            <p th:if="${driverbResults ne null}"><span>档案编号：</span><span th:text="${driverbResults.archiveNumber}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
